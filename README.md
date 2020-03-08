@@ -23,8 +23,9 @@
 - Homepage: [getstisla.com](https://getstisla.com)
 - Repository: [github.com/stisla/stisla](https://github.com/stisla/stisla)
 - Documentation: [getstisla.com/docs](https://getstisla.com/docs)
-- Thanks to KhidirDotId : [Download the latest release](https://github.com/KhidirDotID/stisla-codeigniter/archive/v1.0.0.zip)
-- Ion Auth : [Download the latest release](https://github.com/benedmunds/CodeIgniter-Ion-Auth)
+- Stisla Codeigniter : [Download the latest release](https://github.com/KhidirDotID/stisla-codeigniter/archive/v1.0.0.zip)
+- Github KhidirDotId : [github.com/KhidirDotID](https://github.com/KhidirDotID)
+- Ion Auth : [github.com/benedmunds/CodeIgniter-Ion-Auth](https://github.com/benedmunds/CodeIgniter-Ion-Auth)
 
 ## Installation
 - [Clone the Latest](https://github.com/dheariarachman/codeigniter-admin-auth).
