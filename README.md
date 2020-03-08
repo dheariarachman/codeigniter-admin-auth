@@ -12,6 +12,11 @@
 
 [![Stisla Preview](https://camo.githubusercontent.com/2135e0f6544a7286a3412cdc3df32d47fc91b045/68747470733a2f2f692e6962622e636f2f3674646d6358302f323031382d31312d31312d31352d33352d676574737469736c612d636f6d2e706e67)](https://getstisla.com)
 
+## Thanks to
+- KhidirDotId   : [github.com/KhidirDotID](https://github.com/KhidirDotID)
+- Stisla        : [getstisla.com](https://getstisla.com)
+- Benedmunds    : [github.com/benedmunds](https://github.com/benedmunds)
+
 ## Table of contents
 
 - [Link Stisla](#link-stisla)
@@ -24,7 +29,6 @@
 - Repository: [github.com/stisla/stisla](https://github.com/stisla/stisla)
 - Documentation: [getstisla.com/docs](https://getstisla.com/docs)
 - Stisla Codeigniter : [Download the latest release](https://github.com/KhidirDotID/stisla-codeigniter/archive/v1.0.0.zip)
-- Github KhidirDotId : [github.com/KhidirDotID](https://github.com/KhidirDotID)
 - Ion Auth : [github.com/benedmunds/CodeIgniter-Ion-Auth](https://github.com/benedmunds/CodeIgniter-Ion-Auth)
 
 ## Installation
@@ -33,6 +37,7 @@ or clone the repo :
 ```
 [SSH]
 git@github.com:dheariarachman/codeigniter-admin-auth.git
+
 [HTTPS]
 https://github.com/dheariarachman/codeigniter-admin-auth.git
 ```
