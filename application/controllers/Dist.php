@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dist extends CI_Controller {
+class Dist extends MY_Controller {
 
 	public function index() {
 		$data = array(

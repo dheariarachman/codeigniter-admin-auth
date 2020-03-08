@@ -39,7 +39,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
 |
 */
-$autoload['packages'] = array();
+$autoload['packages'] = array(
+    APPPATH.'third_party/ion_auth'
+);
 
 /*
 | -------------------------------------------------------------------
@@ -58,7 +60,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array();
+$autoload['libraries'] = array('database', 'session', 'ion_auth','form_validation', 'my_pagination');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +91,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url', 'language', 'form', 'utility');
 
 /*
 | -------------------------------------------------------------------
@@ -117,7 +119,7 @@ $autoload['config'] = array();
 | "codeigniter_lang.php" would be referenced as array('codeigniter');
 |
 */
-$autoload['language'] = array();
+$autoload['language'] = array('auth', 'ion_auth');
 
 /*
 | -------------------------------------------------------------------
