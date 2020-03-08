@@ -31,7 +31,10 @@
 - [Clone the Latest](https://github.com/dheariarachman/codeigniter-admin-auth).
 or clone the repo :
 ```
-https://github.com/KhidirDotID/stisla-codeigniter.git
+[SSH]
+git@github.com:dheariarachman/codeigniter-admin-auth.git
+[HTTPS]
+https://github.com/dheariarachman/codeigniter-admin-auth.git
 ```
 
 ## Usage
