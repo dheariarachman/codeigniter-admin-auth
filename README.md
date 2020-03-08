@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h1 align="center">Stisla for CodeIgniter</h1>
+<h1 align="center">Stisla for CodeIgniter With IonAuth</h1>
 
 <p align="center">
   Stisla is Free Bootstrap Admin Template and will help you to speed up your project, design your own dashboard UI and the users will love it.
@@ -19,13 +19,15 @@
 - [Usage](#usage)
 - [License](#License)
 
-## Link Stisla
+## Link
 - Homepage: [getstisla.com](https://getstisla.com)
 - Repository: [github.com/stisla/stisla](https://github.com/stisla/stisla)
 - Documentation: [getstisla.com/docs](https://getstisla.com/docs)
+- Thanks to KhidirDotId : [Download the latest release](https://github.com/KhidirDotID/stisla-codeigniter/archive/v1.0.0.zip)
+- Ion Auth : [Download the latest release](https://github.com/benedmunds/CodeIgniter-Ion-Auth)
 
 ## Installation
-- [Download the latest release](https://github.com/KhidirDotID/stisla-codeigniter/archive/v1.0.0.zip).
+- [Clone the Latest](https://github.com/dheariarachman/codeigniter-admin-auth).
 or clone the repo :
 ```
 https://github.com/KhidirDotID/stisla-codeigniter.git
