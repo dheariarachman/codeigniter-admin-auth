@@ -24,7 +24,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/pagination.html
  */
-class My_pagination {
+class My_pagination extends CI_Pagination {
 
 	var $base_url			= ''; // The page we are linking to
 	var $prefix				= ''; // A custom prefix added to the path.
@@ -36,8 +36,8 @@ class My_pagination {
 	var $cur_page			=  0; // The current page being viewed
 	var $use_page_numbers	= FALSE; // Use page number for segment instead of offset
 	var $first_link			= '&lsaquo; First';
-	var $next_link			= '&gt;';
-	var $prev_link			= '&lt;';
+	var $next_link			= '<a class="page-link" href="#">Next</a>';
+	var $prev_link			= '<a class="page-link" href="#" tabindex="-1">Previous</a>';
 	var $last_link			= 'Last &rsaquo;';
 	var $uri_segment		= 3;
 	var $full_tag_open		= '';
@@ -46,9 +46,11 @@ class My_pagination {
 	var $first_tag_close	= '&nbsp;';
 	var $last_tag_open		= '&nbsp;';
 	var $last_tag_close		= '';
-	var $first_url			= ''; // Alternative URL for the First Page.
-	var $cur_tag_open		= '&nbsp;<strong>';
-	var $cur_tag_close		= '</strong>';
+    var $first_url			= ''; // Alternative URL for the First Page.
+    
+	var $cur_tag_open		= '&nbsp;<li class="page-item active"><a class="page-link" href="#">';
+    var $cur_tag_close		= '<span class="sr-only"></span></a></li>';
+    
 	var $next_tag_open		= '&nbsp;';
 	var $next_tag_close		= '&nbsp;';
 	var $prev_tag_open		= '&nbsp;';

@@ -22,7 +22,7 @@ $this->load->view('dist/_partials/header');
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table cellpadding=0 cellspacing=10 class="table table-sm">
+                                <table cellpadding=0 cellspacing=10 class="table table-striped" id="table-data">
                                     <thead>
                                         <th scope="col"><?php echo lang('index_fname_th');?></th>
                                         <th scope="col"><?php echo lang('index_lname_th');?></th>

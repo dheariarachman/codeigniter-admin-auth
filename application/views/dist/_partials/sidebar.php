@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php echo _load_menu($this->uri->segment(3), 'menus', ['nav-link', ''], base_url().'admin/master/menus', lang('menu_page_list')) ?>
                     <?php echo _load_menu($this->uri->segment(3), 'tables', ['nav-link', ''], base_url().'admin/master/tables', lang('tables_page_list')) ?>
                     <?php echo _load_menu($this->uri->segment(3), 'billiard', ['nav-link', ''], base_url().'admin/master/billiard', lang('billiard_page_list')) ?>
-                    <?php echo _load_menu($this->uri->segment(3), 'category', ['nav-link', ''], base_url().'admin/master/category', lang('category_menu_page')) ?>
+                    <?php echo _load_menu($this->uri->segment(3), 'categories', ['nav-link', ''], base_url().'admin/master/categories', lang('category_menu_page')) ?>
                 </ul>
             </li>
 
