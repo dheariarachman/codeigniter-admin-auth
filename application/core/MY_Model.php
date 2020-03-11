@@ -18,4 +18,10 @@ class MY_Model extends CI_Model
         $this->db->where($condition);
         return $this->db->get($table);
     }
+
+    public function update(string $id = null, array $data = array(), string $table = null)
+    {
+        $this->db->where('id', $id);
+        return $this->db->update($table, $data);
+    }
 }

@@ -10,12 +10,6 @@ $(document).ready(function(e) {
   $("#table-data").DataTable({});
   $(".dataTables_filter").addClass("float-right");
   $(".dataTables_paginate").addClass("float-right");
-  $(".modal").on("hidden.bs.modal", function(e) {
-    $(this)
-      .find("input, textarea, select")
-      .val("")
-      .end();
-  });
 });
 
 const save_data = id => {
@@ -80,9 +74,11 @@ const edit_data = element => {
       { id: $(element).data("id") },
       function(res) {
         if (res["status"]) {
-          $(e.currentTarget)
-            .find('input[name="category"]')
-            .val(res["msg"]["category"]);
+          Object.entries(res["msg"]).forEach(([id, element]) => {
+            $(e.currentTarget)
+              .find('[name="' + id + '"]')
+              .val(element);
+          });
         } else {
           swal("Maaf !", res["msg"], "error");
         }
