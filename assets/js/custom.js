@@ -12,6 +12,35 @@ $(document).ready(function(e) {
   $(".dataTables_paginate").addClass("float-right");
 });
 
+$("#modal-form-add").on("show.bs.modal", function(evt) {
+  let attr = $(evt.relatedTarget);
+  let element = attr.data("action");
+  if (element === "edit") {
+    $.get(
+      $(attr).data("href"),
+      { id: $(attr).data("id") },
+      function(res) {
+        console.log(res);
+        if (res["status"]) {
+          Object.entries(res["msg"]).forEach(([id, value]) => {
+            $(evt.currentTarget)
+              .find('[name="' + id + '"]')
+              .val(value);
+          });
+        } else {
+          swal("Maaf !", res["msg"], "error");
+        }
+      },
+      "json"
+    );
+  } else if (element === "add") {
+    $(this)
+      .find("form")[0]
+	  .reset();
+	$(this).find('input[type="hidden"]').val("");
+  }
+});
+
 const save_data = id => {
   let formId = "#" + id;
   $(formId).ajaxSubmit({
@@ -40,50 +69,37 @@ const save_data = id => {
 };
 
 const delete_data = element => {
-  $.ajax({
-    url: $(element).data("href"),
-    data: { id: $(element).data("id") },
-    type: "POST",
-    dataType: "json",
-    success: function(res) {
-      if (res["status"]) {
-        swal({
-          title: res["msg"],
-          icon: "success"
-        }).then(willDelete => {
-          if (willDelete) {
-            $("#modal-form-add").modal("toggle");
-            location.reload(true);
+  swal({
+    title: "Apakah Anda Yakin Akan Menghapus?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true
+  }).then(willDelete => {
+    if (willDelete) {
+      $.ajax({
+        url: $(element).data("href"),
+        data: { id: $(element).data("id") },
+        type: "POST",
+        dataType: "json",
+        success: function(res) {
+          if (res["status"]) {
+            swal({
+              text: res["msg"],
+              icon: "success"
+            }).then(willDelete => {
+              if (willDelete) {
+                $("#modal-form-add").modal("toggle");
+                location.reload(true);
+              }
+            });
+          } else {
+            swal("Maaf !", res["msg"], "error");
           }
-        });
-      } else {
-        swal("Maaf !", res["msg"], "error");
-      }
-    },
-    error: function(err) {
-      swal("Maaf !", "Terjadi Kesalahan !", "error");
-    }
-  });
-};
-
-const edit_data = element => {
-  let modalId = $(element).data("target");
-  $(modalId).on("show.bs.modal", function(e) {
-    $.get(
-      $(element).data("href"),
-      { id: $(element).data("id") },
-      function(res) {
-        if (res["status"]) {
-          Object.entries(res["msg"]).forEach(([id, element]) => {
-            $(e.currentTarget)
-              .find('[name="' + id + '"]')
-              .val(element);
-          });
-        } else {
-          swal("Maaf !", res["msg"], "error");
+        },
+        error: function(err) {
+          swal("Maaf !", "Terjadi Kesalahan !", "error");
         }
-      },
-      "json"
-    );
+      });
+    }
   });
 };

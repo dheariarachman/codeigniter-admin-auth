@@ -3,7 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Administrator extends MY_Controller
 {
-    private $_tbl_categories = 'tbl_categories';
+    private $_tbl_categories    = 'tbl_m_categories';
+    private $_tbl_menu          = 'tbl_m_menu';
+    private $_tbl_billiard      = 'tbl_m_billiard';
+    private $_tbl_table         = 'tbl_m_table';
     private $_data = array();
     public function __construct()
     {
@@ -25,39 +28,85 @@ class Administrator extends MY_Controller
     #region Master Menu
     public function menus()
     {
+        $list_menu = $this->admin->list_menus($this->_tbl_menu, $this->_tbl_categories);
+        $categories = options_array($this->admin->list_categories()->result(), 'id', 'category');
+
         $this->_data = [
-            'viewParent' => 'admin/' . $this->method . '/index',
-            'form_page' => 'admin/' . $this->method . '/form',
-            'pageSubTitle' => 'Master ' . ucfirst($this->method),
-            'form_id' => 'form_' . $this->method,
-            'titleModal' => ucfirst($this->method),
-            'action' => 'admin/master/save_' . $this->method,
-            'edit_data' => 'admin/master/edit_' . $this->method,
-            'delete_data' => 'admin/master/delete_' .$this->method,
-            'dataContent' => [],
+            'viewParent'        => 'admin/' . $this->method . '/index',
+            'form_page'         => 'admin/' . $this->method . '/form',
+            'action'            => 'admin/master/save_' . $this->method,
+            'edit_data'         => 'admin/master/edit_' . $this->method,
+            'delete_data'       => 'admin/master/delete_' . $this->method,
+            'pageSubTitle'      => 'Master ' . ucfirst($this->method),
+            'form_id'           => 'form_' . $this->method,
+            'titleModal'        => ucfirst($this->method),
+            'dataContent'       => [
+                'menus' => $list_menu, 
+                'options_categories' => $categories
+            ],
         ];
         return $this->load->view('template_content', $this->_data);
     }
 
     public function save_menus()
     {
-        # code...
+        $this->_data = $this->input->post();
+        $this->save($this->_data, $this->_tbl_menu);
     }
 
     public function edit_menus()
     {
-        # code...
+        $this->_data = $this->input->post();
+        $this->save($this->_data, $this->_tbl_menu, $this->input->post('id'));
     }
 
     public function delete_menus()
     {
-        // 
+        $this->delete($this->input->post('id'), 'id', $this->_tbl_menu);
     }
     #endregion
 
     #region Master Tables
     public function tables()
     {
+        $list_tables = $this->admin->getAll($this->_tbl_table);
+        $this->_data = [
+            'viewParent'    => 'admin/' . $this->method . '/index',
+            'form_page'     => 'admin/' . $this->method . '/form',
+            'action'        => 'admin/master/save_' . $this->method,
+            'edit'          => 'admin/master/edit_' . $this->method,
+            'delete'        => 'admin/master/delete_' . $this->method,
+            'pageSubTitle'  => 'Master ' . ucfirst($this->method),
+            'form_id'       => 'form_' . $this->method,
+            'titleModal'    => ucfirst($this->method),
+            'dataContent' => ['list_tables' => $list_tables],
+        ];
+        return $this->load->view('template_content', $this->_data);
+    }
+
+    public function save_tables()
+    {
+        $this->_data = $this->input->post();
+        $this->save($this->_data, $this->_tbl_table, $this->input->post('id'));
+    }
+
+    public function edit_tables()
+    {
+        // $this->_data = $this->input->post();
+        // $this->save($this->_data, $this->_tbl_menu, $this->input->post('id'));
+    }
+
+    public function delete_tables()
+    {
+        $this->delete($this->input->post('id'), 'id', $this->_tbl_table);
+    }
+    #endregion
+
+    #region Master Billiard
+    public function billiard()
+    {
+        $list_billiard_table = $this->admin->getAll($this->_tbl_billiard);
+
         $this->_data = [
             'viewParent' => 'admin/' . $this->method . '/index',
             'form_page' => 'admin/' . $this->method . '/form',
@@ -65,61 +114,27 @@ class Administrator extends MY_Controller
             'form_id' => 'form_' . $this->method,
             'titleModal' => ucfirst($this->method),
             'action' => 'admin/master/save_' . $this->method,
-            'edit_data' => 'admin/master/edit_' . $this->method,
-            'delete_data' => 'admin/master/delete_' .$this->method,
-            'dataContent' => [],
-        ];
-        return $this->load->view('template_content', $this->_data);
-    }
-
-    public function save_tables()
-    {
-        # code...
-    }
-
-    public function edit_tables()
-    {
-        # code...
-    }
-
-    public function delete_tables()
-    {
-        # code...
-    }
-    #endregion
-
-    #region Master Billiard
-    public function billiard()
-    {
-        $listCategories = $this->admin->list_categories();
-
-        $this->_data = [
-            'viewParent'    => 'admin/' . $this->method . '/index',
-            'form_page'     => 'admin/' . $this->method . '/form',
-            'pageSubTitle'  => 'Master ' . ucfirst($this->method),
-            'form_id'       => 'form_' . $this->method,
-            'titleModal'    => ucfirst($this->method),
-            'action'        => 'admin/master/save_' . $this->method,
-            'edit_data'     => 'admin/master/edit_' . $this->method,
-            'dataContent'   => ['categories' => $listCategories],
+            'edit'          => 'admin/master/edit_' . $this->method,
             'delete'        => 'admin/master/delete_' . $this->method,
+            'dataContent'   => ['billiard_tables' => $list_billiard_table],
         ];
         $this->load->view('template_content', $this->_data);
     }
 
     public function save_billiard()
     {
-        # code...
+        $this->_data = $this->input->post();
+        $this->save($this->_data, $this->_tbl_billiard);
     }
 
     public function edit_billiard()
     {
-        # code...
+        $this->output->set_output(json_encode(['status' => true, 'msg' => $this->admin->get_by_id(['id' => $this->input->get('id')], $this->_tbl_billiard)->first_row()]));
     }
 
     public function delete_billiard()
     {
-        # code...
+        $this->delete($this->input->post('id'), 'id', $this->_tbl_billiard);
     }
     #endregion
 
@@ -127,15 +142,15 @@ class Administrator extends MY_Controller
     public function cash()
     {
         $this->_data = [
-            'viewParent'    => 'admin/' . $this->method . '/index',
-            'form_page'     => 'admin/' . $this->method . '/form',
-            'pageSubTitle'  => 'Master ' . ucfirst($this->method),
-            'form_id'       => 'form_' . $this->method,
-            'titleModal'    => ucfirst($this->method),
-            'action'        => 'admin/master/save_' . $this->method,
-            'edit_data'     => 'admin/master/edit_' . $this->method,
-            'delete'        => 'admin/master/delete_' . $this->method,
-            'dataContent'   => [],
+            'viewParent' => 'admin/' . $this->method . '/index',
+            'form_page' => 'admin/' . $this->method . '/form',
+            'pageSubTitle' => 'Master ' . ucfirst($this->method),
+            'form_id' => 'form_' . $this->method,
+            'titleModal' => ucfirst($this->method),
+            'action' => 'admin/master/save_' . $this->method,
+            'edit_data' => 'admin/master/edit_' . $this->method,
+            'delete' => 'admin/master/delete_' . $this->method,
+            'dataContent' => [],
         ];
         $this->load->view('template_content', $this->_data);
     }
@@ -160,15 +175,15 @@ class Administrator extends MY_Controller
     public function purchase()
     {
         $this->_data = [
-            'viewParent'    => 'admin/' . $this->method . '/index',
-            'form_page'     => 'admin/' . $this->method . '/form',
-            'pageSubTitle'  => 'Master ' . ucfirst($this->method),
-            'form_id'       => 'form_' . $this->method,
-            'titleModal'    => ucfirst($this->method),
-            'action'        => 'admin/master/save_' . $this->method,
-            'edit_data'     => 'admin/master/edit_' . $this->method,
-            'delete'        => 'admin/master/delete_' . $this->method,
-            'dataContent'   => [],
+            'viewParent' => 'admin/' . $this->method . '/index',
+            'form_page' => 'admin/' . $this->method . '/form',
+            'pageSubTitle' => 'Master ' . ucfirst($this->method),
+            'form_id' => 'form_' . $this->method,
+            'titleModal' => ucfirst($this->method),
+            'action' => 'admin/master/save_' . $this->method,
+            'edit_data' => 'admin/master/edit_' . $this->method,
+            'delete' => 'admin/master/delete_' . $this->method,
+            'dataContent' => [],
         ];
         $this->load->view('template_content', $this->_data);
     }
@@ -209,46 +224,19 @@ class Administrator extends MY_Controller
 
     public function edit_category()
     {
-        $category = $this->admin->get_by_id(['id' => $this->input->get('id')], $this->_tbl_categories)->row();
-        if (!empty($category)) {
-            $this->output->set_output(json_encode(['status' => true, 'msg' => $category]));
-        } else {
-            $this->output->set_output(json_encode(['status' => false, 'msg' => 'Data Tidak Ditemukan']));
-        }
+        $this->_data = $this->input->post();
+        $this->save($this->_data, $this->_tbl_categories, $this->input->post('id'));
     }
 
     public function save_category()
     {
-        $message = [];
-        if ($this->input->post()) {
-            if (empty($this->input->post('id')) or $this->input->post('id') == '') {
-                if ($this->admin->save($this->input->post(), $this->_tbl_categories)) {
-                    $message = ['status' => true, 'msg' => 'Data Berhasil Tersimpan'];
-                } else {
-                    $message = ['status' => false, 'msg' => 'Data Tidak Tersimpan'];
-                }
-            } else {
-                if ($this->admin->update($this->input->post('id'), $this->input->post(), $this->_tbl_categories)) {
-                    $message = ['status' => true, 'msg' => 'Data Berhasil Terupdate'];
-                } else {
-                    $message = ['status' => false, 'msg' => 'Data Tidak Terupdate'];
-                }
-            }
-        } else {
-            $message = ['status' => false, 'msg' => 'Terdapat Kesalahan Pada Sistem'];
-        }
-        $this->output->set_output(json_encode($message));
+        $this->_data = $this->input->post();
+        $this->save($this->_data, $this->_tbl_categories);
     }
 
     public function delete_category()
     {
-        if (!empty($this->input->post('id')) and !is_null($this->input->post('id'))) {
-            if ($this->admin->delete(['id' => $this->input->post('id')], $this->_tbl_categories)) {
-                $this->output->set_output(json_encode(['status' => true, 'msg' => 'Data Berhasil Terhapus']));
-            } else {
-                $this->output->set_output(json_encode(['status' => false, 'msg' => 'Data Gagal Dihapus']));
-            }
-        }
+        $this->delete($this->input->post('id'), 'id', $this->_tbl_categories);
     }
     #endregion
 }

@@ -236,6 +236,7 @@ if ($this->uri->segment(2) == "" || $this->uri->segment(2) == "index") {?>
 }?>
 
 <!-- Template JS File -->
+<script src="<?php echo base_url(); ?>assets/modules/summernote/summernote-bs4.js"></script>
 <script src="<?php echo base_url(); ?>assets/modules/datatables/datatables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
