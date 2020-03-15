@@ -57,3 +57,17 @@ if (!function_exists('options_array')) {
         return $arrayReturn;
     }
 }
+
+/**
+ * Create Currency Format
+ * @method number_to_currency
+ * @param int number
+ * @return int
+ */
+if (!function_exists('number_to_currency')) {
+    function number_to_currency(int $number = 0)
+    {
+        $fmt = numfmt_create('id_ID', NumberFormatter::CURRENCY);
+        return numfmt_format_currency($fmt, $number, "IDR");
+    }
+}

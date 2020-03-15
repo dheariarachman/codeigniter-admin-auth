@@ -19,7 +19,7 @@ class MY_Controller extends CI_Controller
 
     public function save(array $data = array(), string $table = null, string $id = null)
     {
-        if (empty($id) or is_null($id) or $id !== '') {
+        if (empty($id) or is_null($id) or $id === '') {
             unset($data['id']);
             if ($this->admin->save($data, $table)) {
                 $this->_message = ['status' => true, 'msg' => 'Data Berhasil Tersimpan'];

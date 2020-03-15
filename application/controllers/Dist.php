@@ -4,10 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Dist extends MY_Controller {
 
 	public function index() {
-		$data = array(
-			'title' => "Ecommerce Dashboard"
-		);
-		$this->load->view('dist/index', $data);
+        $this->title = "Ecommerce Dashboard";
+		$this->load->view('dist/index');
 	}
 
 	public function index_0() {

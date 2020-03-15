@@ -3,7 +3,7 @@
     <div class="form-group">
         <input type="hidden" name="id" value="">
         <label for="name">Tables </label>
-        <input type="text" class="form-control" name="name" id="name" placeholder="Masukan Nomor / Kode Meja">
+        <input type="text" class="form-control" name="name" id="name" placeholder="Masukan Nomor / Kode Meja" autofocus>
     </div>
     <div class="form-group">
         <label for="capacity">Capacity </label>
@@ -12,6 +12,6 @@
 </div>
 <div class="modal-footer bg-whitesmoke br">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary" onclick="save_data('<?php echo $form_id; ?>')">Save</button>
+    <button type="submit" class="btn btn-primary" onclick="save_data('<?php echo $form_id; ?>')">Save</button>
 </div>
 <?php form_close(); ?>

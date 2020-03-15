@@ -103,7 +103,7 @@ $this->load->view('dist/_partials/header');
         <div class="row">
             <div class="col-sm-12 col-md-4 col-lg-4">
                 <div class="card">
-                    <a href="" class="btn btn-primary btn-block col-12"
+                    <a href="<?php echo site_url('servant/order') ?>" class="btn btn-primary btn-block col-12"
                         style="padding-top: 30px; padding-bottom: 30px;">
                         <h2>Order Menu</h2>
                     </a>

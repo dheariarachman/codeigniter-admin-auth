@@ -3,11 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Administrator extends MY_Controller
 {
-    private $_tbl_categories    = 'tbl_m_categories';
-    private $_tbl_menu          = 'tbl_m_menu';
-    private $_tbl_billiard      = 'tbl_m_billiard';
-    private $_tbl_table         = 'tbl_m_table';
+    private $_tbl_categories = 'tbl_m_categories';
+    private $_tbl_menu = 'tbl_m_menu';
+    private $_tbl_billiard = 'tbl_m_billiard';
+    private $_tbl_table = 'tbl_m_table';
     private $_data = array();
+
     public function __construct()
     {
         parent::__construct();
@@ -32,17 +33,17 @@ class Administrator extends MY_Controller
         $categories = options_array($this->admin->list_categories()->result(), 'id', 'category');
 
         $this->_data = [
-            'viewParent'        => 'admin/' . $this->method . '/index',
-            'form_page'         => 'admin/' . $this->method . '/form',
-            'action'            => 'admin/master/save_' . $this->method,
-            'edit_data'         => 'admin/master/edit_' . $this->method,
-            'delete_data'       => 'admin/master/delete_' . $this->method,
-            'pageSubTitle'      => 'Master ' . ucfirst($this->method),
-            'form_id'           => 'form_' . $this->method,
-            'titleModal'        => ucfirst($this->method),
-            'dataContent'       => [
-                'menus' => $list_menu, 
-                'options_categories' => $categories
+            'viewParent' => 'admin/' . $this->method . '/index',
+            'form_page' => 'admin/' . $this->method . '/form',
+            'pageSubTitle' => 'Master ' . ucfirst($this->method),
+            'form_id' => 'form_' . $this->method,
+            'titleModal' => ucfirst($this->method),
+            'action' => 'admin/master/save_' . $this->method,
+            'edit' => 'admin/master/edit_' . $this->method,
+            'delete' => 'admin/master/delete_' . $this->method,
+            'dataContent' => [
+                'menus' => $list_menu,
+                'options_categories' => $categories,
             ],
         ];
         return $this->load->view('template_content', $this->_data);
@@ -51,13 +52,12 @@ class Administrator extends MY_Controller
     public function save_menus()
     {
         $this->_data = $this->input->post();
-        $this->save($this->_data, $this->_tbl_menu);
+        $this->save($this->_data, $this->_tbl_menu, $this->input->post('id'));
     }
 
     public function edit_menus()
     {
-        $this->_data = $this->input->post();
-        $this->save($this->_data, $this->_tbl_menu, $this->input->post('id'));
+        $this->output->set_output(json_encode(['status' => true, 'msg' => $this->admin->get_by_id(['id' => $this->input->get('id')], $this->_tbl_menu)->first_row()]));
     }
 
     public function delete_menus()
@@ -71,14 +71,14 @@ class Administrator extends MY_Controller
     {
         $list_tables = $this->admin->getAll($this->_tbl_table);
         $this->_data = [
-            'viewParent'    => 'admin/' . $this->method . '/index',
-            'form_page'     => 'admin/' . $this->method . '/form',
-            'action'        => 'admin/master/save_' . $this->method,
-            'edit'          => 'admin/master/edit_' . $this->method,
-            'delete'        => 'admin/master/delete_' . $this->method,
-            'pageSubTitle'  => 'Master ' . ucfirst($this->method),
-            'form_id'       => 'form_' . $this->method,
-            'titleModal'    => ucfirst($this->method),
+            'viewParent' => 'admin/' . $this->method . '/index',
+            'form_page' => 'admin/' . $this->method . '/form',
+            'action' => 'admin/master/save_' . $this->method,
+            'edit' => 'admin/master/edit_' . $this->method,
+            'delete' => 'admin/master/delete_' . $this->method,
+            'pageSubTitle' => 'Master ' . ucfirst($this->method),
+            'form_id' => 'form_' . $this->method,
+            'titleModal' => ucfirst($this->method),
             'dataContent' => ['list_tables' => $list_tables],
         ];
         return $this->load->view('template_content', $this->_data);
@@ -92,8 +92,8 @@ class Administrator extends MY_Controller
 
     public function edit_tables()
     {
-        // $this->_data = $this->input->post();
-        // $this->save($this->_data, $this->_tbl_menu, $this->input->post('id'));
+        $this->_data = $this->input->post();
+        $this->save($this->_data, $this->_tbl_menu, $this->input->post('id'));
     }
 
     public function delete_tables()
@@ -114,9 +114,9 @@ class Administrator extends MY_Controller
             'form_id' => 'form_' . $this->method,
             'titleModal' => ucfirst($this->method),
             'action' => 'admin/master/save_' . $this->method,
-            'edit'          => 'admin/master/edit_' . $this->method,
-            'delete'        => 'admin/master/delete_' . $this->method,
-            'dataContent'   => ['billiard_tables' => $list_billiard_table],
+            'edit' => 'admin/master/edit_' . $this->method,
+            'delete' => 'admin/master/delete_' . $this->method,
+            'dataContent' => ['billiard_tables' => $list_billiard_table],
         ];
         $this->load->view('template_content', $this->_data);
     }
@@ -124,7 +124,7 @@ class Administrator extends MY_Controller
     public function save_billiard()
     {
         $this->_data = $this->input->post();
-        $this->save($this->_data, $this->_tbl_billiard);
+        $this->save($this->_data, $this->_tbl_billiard, $this->input->post('id'));
     }
 
     public function edit_billiard()
@@ -137,6 +137,46 @@ class Administrator extends MY_Controller
         $this->delete($this->input->post('id'), 'id', $this->_tbl_billiard);
     }
     #endregion
+
+    #region Master Categories
+    public function categories()
+    {
+        $listCategories = $this->admin->list_categories();
+
+        $this->_data = [
+            'viewParent' => 'admin/' . $this->method . '/index',
+            'form_page' => 'admin/' . $this->method . '/form',
+            'pageSubTitle' => 'Master ' . ucfirst($this->method),
+            'form_id' => 'form_' . $this->method,
+            'titleModal' => ucfirst($this->method),
+            'action' => 'admin/master/save_' . $this->method,
+            'edit' => 'admin/master/edit_' . $this->method,
+            'delete' => 'admin/master/delete_' . $this->method,
+            'dataContent' => ['categories' => $listCategories],
+        ];
+        $this->load->view('template_content', $this->_data);
+    }
+
+    public function edit_categories()
+    {
+        $this->output->set_output(json_encode(['status' => true, 'msg' => $this->admin->get_by_id(['id' => $this->input->get('id')], $this->_tbl_categories)->first_row()]));
+    }
+
+    public function save_categories()
+    {
+        $this->_data = $this->input->post();
+        $this->save($this->_data, $this->_tbl_categories, $this->input->post('id'));
+    }
+
+    public function delete_categories()
+    {
+        $this->delete($this->input->post('id'), 'id', $this->_tbl_categories);
+    }
+    #endregion
+
+    /**
+     * Transaction
+     */
 
     #region Master Cash
     public function cash()
@@ -181,7 +221,7 @@ class Administrator extends MY_Controller
             'form_id' => 'form_' . $this->method,
             'titleModal' => ucfirst($this->method),
             'action' => 'admin/master/save_' . $this->method,
-            'edit_data' => 'admin/master/edit_' . $this->method,
+            'edit' => 'admin/master/edit_' . $this->method,
             'delete' => 'admin/master/delete_' . $this->method,
             'dataContent' => [],
         ];
@@ -201,42 +241,6 @@ class Administrator extends MY_Controller
     public function delete_purchase()
     {
         # code...
-    }
-    #endregion
-
-    #region Master Categories
-    public function categories()
-    {
-        $listCategories = $this->admin->list_categories();
-
-        $this->_data = [
-            'viewParent' => 'admin/' . $this->method . '/index',
-            'form_page' => 'admin/' . $this->method . '/form',
-            'pageSubTitle' => 'Master Categories',
-            'form_id' => 'form_categories',
-            'titleModal' => '<i class="fas fa-utensils"></i> Add Categories',
-            'action' => 'admin/master/save_category',
-            'edit_data' => 'admin/master/edit_category',
-            'dataContent' => ['categories' => $listCategories],
-        ];
-        $this->load->view('template_content', $this->_data);
-    }
-
-    public function edit_category()
-    {
-        $this->_data = $this->input->post();
-        $this->save($this->_data, $this->_tbl_categories, $this->input->post('id'));
-    }
-
-    public function save_category()
-    {
-        $this->_data = $this->input->post();
-        $this->save($this->_data, $this->_tbl_categories);
-    }
-
-    public function delete_category()
-    {
-        $this->delete($this->input->post('id'), 'id', $this->_tbl_categories);
     }
     #endregion
 }

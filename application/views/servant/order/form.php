@@ -1,9 +1,9 @@
 <?php echo form_open($action, ['class' => '', 'id' => $form_id, 'method' => 'POST']) ?>
 <div class="modal-body">
+    <input type="hidden" name="id" id="id">
     <div class="form-group">
-        <input type="hidden" name="id" value="">
-        <label>Category </label>
-        <input type="text" class="form-control" name="category" placeholder="Masukan Category Makanan / Minuman">
+        <label for="table">Tables </label>
+        <input type="text" class="form-control" name="table" id="table" placeholder="Masukan Nomor / Kode Meja" value="<?php ?>" >
     </div>
 </div>
 <div class="modal-footer bg-whitesmoke br">

@@ -40,17 +40,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave"></i>
                     <span><?php echo lang('transaction_page') ?></span></a>
                 <ul class="dropdown-menu">
-                    <?php echo _load_menu($this->uri->segment(3), 'treasury', ['nav-link', ''], base_url().'admin/treasury/cash', lang('treasury_page_list')) ?>
-                    <?php echo _load_menu($this->uri->segment(3), 'treasury', ['nav-link', ''], base_url().'admin/treasury/purchase', lang('purchase_page')) ?>
+                    <?php echo _load_menu($this->uri->segment(3), 'cash', ['nav-link', ''], base_url().'admin/treasury/cash', lang('treasury_page_list')) ?>
+                    <?php echo _load_menu($this->uri->segment(3), 'purchase', ['nav-link', ''], base_url().'admin/treasury/purchase', lang('purchase_page')) ?>
                 </ul>
             </li>
 
-            <li class="dropdown <?php echo $this->uri->segment(2) == 'treasury' ? 'active' : ''; ?>">
+            <li class="dropdown <?php echo $this->uri->segment(2) == 'inventory' ? 'active' : ''; ?>">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-inbox"></i>
                     <span><?php echo lang('inventory_page') ?></span></a>
                 <ul class="dropdown-menu">
-                    <?php echo _load_menu($this->uri->segment(3), 'cash', ['nav-link', ''], base_url().'admin/treasury/cash', lang('stock_in_page')) ?>
-                    <?php echo _load_menu($this->uri->segment(3), 'purchase', ['nav-link', ''], base_url().'admin/treasury/purchase', lang('stock_out_page')) ?>
+                    <?php echo _load_menu($this->uri->segment(3), 'stock_in', ['nav-link', ''], base_url().'admin/treasury/stock_in', lang('stock_in_page')) ?>
+                    <?php echo _load_menu($this->uri->segment(3), 'stock_out', ['nav-link', ''], base_url().'admin/treasury/stock_out', lang('stock_out_page')) ?>
                 </ul>
             </li>
 
