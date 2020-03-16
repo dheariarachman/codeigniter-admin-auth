@@ -11,6 +11,8 @@ class Servant extends MY_Controller
      */
     private $_tbl_tr        = 'tbl_tr';
     private $_tbl_tr_detail = 'tbl_tr_detail';
+    private $_tbl_m_table   = 'tbl_m_table';
+    private $_tbl_m_menu    = 'tbl_m_menu';
     public function __construct()
     {
         parent::__construct();
@@ -34,7 +36,10 @@ class Servant extends MY_Controller
 
     public function order()
     {
-        $list_order = $this->admin->list_order(['created_by' => $this->ion_auth->get_user_id()]);
+        $list_order     = $this->admin->list_order(['created_by' => $this->ion_auth->get_user_id()]);
+        $list_table     = options_array($this->admin->getAll($this->_tbl_m_table)->result(), 'id', 'name', 'Meja');
+        $list_menu      = options_array($this->admin->getAll($this->_tbl_m_menu)->result(), 'id', 'name','Menu', 'price');
+        
         $this->_data = [
             'viewParent' => $this->_module . '/' . $this->method . '/index',
             'form_page' => $this->_module . '/' . $this->method . '/form',
@@ -44,7 +49,12 @@ class Servant extends MY_Controller
             'action' => $this->_module . '/save_' . $this->method,
             'edit' => $this->_module . '/edit_' . $this->method,
             'delete' => $this->_module . '/delete_' . $this->method,
-            'dataContent' => ['orders' => $list_order],
+            'dataContent' => [
+                'orders'    => $list_order,
+                'tables'    => $list_table,
+                'menus'     => $list_menu,
+                'kasir'     => $this->ion_auth->user()->row()
+            ],
         ];
         return $this->load->view('template_content', $this->_data);
     }

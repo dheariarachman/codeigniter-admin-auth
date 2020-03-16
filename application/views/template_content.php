@@ -25,17 +25,4 @@ $this->load->view('dist/_partials/header');
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="modal-form-add">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add <?php echo $this->title ?></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <?php $this->load->view($form_page); ?>
-        </div>
-    </div>
-</div>
 <?php $this->load->view('dist/_partials/footer'); ?>

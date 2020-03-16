@@ -47,12 +47,11 @@ if (!function_exists('_last_login')) {
  * @return array
  */
 if (!function_exists('options_array')) {
-    function options_array(array $data = array(), string $id = null, string $column = null): array
+    function options_array(array $data = array(), string $id = null, string $column1 = null, string $placeholder = null, string $column2 = null): array
     {
-        // $arrayReturn    = array();
-        $arrayReturn[0] = '-- Pilih ' .ucfirst($column). ' --';
+        $arrayReturn[0] = '-- Pilih ' . ucfirst($placeholder) . ' --';
         foreach ($data as $key => $value) {
-            $arrayReturn[$value->$id] = $value->$column;
+            $arrayReturn[$value->$id] = (is_null($column2)) ? $value->$column1 : $value->$column1 ." -- ". $value->$column2;
         }
         return $arrayReturn;
     }
