@@ -107,5 +107,6 @@ function loop_selected_item() {
 
         $('#rupiah').html(finalPrice);
     })
+    $('#menus').val(0).trigger("change");
 }
 </script>
