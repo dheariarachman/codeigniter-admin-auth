@@ -13,6 +13,7 @@ class Servant extends MY_Controller
     private $_tbl_tr_detail = 'tbl_tr_detail';
     private $_tbl_m_table   = 'tbl_m_table';
     private $_tbl_m_menu    = 'tbl_m_menu';
+    private $_tbl_m_payment = 'tbl_m_payment';
     public function __construct()
     {
         parent::__construct();
@@ -39,6 +40,7 @@ class Servant extends MY_Controller
         $list_order     = $this->admin->list_order(['created_by' => $this->ion_auth->get_user_id()]);
         $list_table     = options_array($this->admin->getAll($this->_tbl_m_table)->result(), 'id', 'name', 'Meja');
         $list_menu      = options_array($this->admin->getAll($this->_tbl_m_menu)->result(), 'id', 'name','Menu', 'price');
+        $list_payment   = options_array($this->admin->getAll($this->_tbl_m_payment)->result(), 'id', 'payment', 'Pembayaran');
         
         $this->_data = [
             'viewParent' => $this->_module . '/' . $this->method . '/index',
@@ -46,23 +48,35 @@ class Servant extends MY_Controller
             'pageSubTitle' => "List " . ucfirst($this->method),
             'form_id' => 'form_' . $this->method,
             'titleModal' => ucfirst($this->method),
-            'action' => $this->_module . '/save_' . $this->method,
+            'action' => $this->_module . '/checkout',
             'edit' => $this->_module . '/edit_' . $this->method,
             'delete' => $this->_module . '/delete_' . $this->method,
             'dataContent' => [
                 'orders'    => $list_order,
                 'tables'    => $list_table,
                 'menus'     => $list_menu,
+                'payments'  => $list_payment,
                 'kasir'     => $this->ion_auth->user()->row()
             ],
         ];
         return $this->load->view('template_content', $this->_data);
     }
 
-    public function save_menus()
+    public function checkout()
     {
-        $this->_data = $this->input->post();
-        $this->save($this->_data, $this->_tbl_menu, $this->input->post('id'));
+        $data = [
+            'table_id'      => $this->input->post('table_id'),
+            'customer'      => $this->input->post('customer'),
+            'payment_type'  => $this->input->post('payment_type'),
+            'nominal'       => $this->input->post('nominal'),
+            'created_by'    => $this->input->post('created_by'),
+        ];
+
+        $this->output->set_output(json_encode($data));
+
+        // var_dump($this->input->post());
+        // $this->_data = $this->input->post();
+        // $this->save($this->_data, $this->_tbl_menu, $this->input->post('id'));
     }
 
     public function edit_menus()

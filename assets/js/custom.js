@@ -10,11 +10,14 @@ $(document).ready(function(e) {
   $("#table-data").DataTable({});
   $(".dataTables_filter").addClass("float-right");
   $(".dataTables_paginate").addClass("float-right");
-  //   $(".summernote").summernote({
-  //     height: 10,
-  //     minHeight: null,
-  //     maxHeight: null
-  //   });
+});
+
+/**
+ * Function for format number to Currency
+ */
+let formatter = new Intl.NumberFormat("id-ID", {
+  style: "currency",
+  currency: "IDR"
 });
 
 $("#modal-form-add").on("show.bs.modal", function(evt) {
@@ -39,11 +42,6 @@ $("#modal-form-add").on("show.bs.modal", function(evt) {
                         .prop("checked", true);
                     }
                     break;
-                  case "select":
-                    // $(evt.currentTarget)
-                    //   .find('[name="' + id + '"]')
-                    //   .val([]);
-                    break;
                   default:
                     $(evt.currentTarget)
                       .find('[name="' + id + '"]')
@@ -66,6 +64,9 @@ $("#modal-form-add").on("show.bs.modal", function(evt) {
       $(this)
         .find('input[type="hidden"]')
         .val("");
+      $(this)
+        .find('select')
+        .val(0);
       break;
 
     default:

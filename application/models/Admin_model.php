@@ -20,9 +20,9 @@ class Admin_model extends MY_Model
 
     public function list_order(array $condition = array())
     {
-        $this->db->select('a.customer, a.id, a.nominal, a.created_by, a.created_at, b.count, c.name, d.payment, e.name, f.category');
+        $this->db->select('a.customer, a.id, a.nominal, a.created_by, a.created_at, b.quantity, c.name, d.payment, e.name, f.category');
         $this->db->from('tbl_tr a');
-        $this->db->join('tbl_tr_detail b'   , 'b.tr_id = a.tr_detail', 'LEFT');
+        $this->db->join('tbl_tr_detail b'   , 'b.tr_id = a.id', 'LEFT');
         $this->db->join('tbl_m_table c'     , 'c.id = a.table_id', 'LEFT');
         $this->db->join('tbl_m_payment d'   , 'c.id = a.payment_type', 'LEFT');
         $this->db->join('tbl_m_menu e'      , 'e.id = b.menu_id', 'LEFT');
